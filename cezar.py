@@ -1,7 +1,7 @@
 import re
 
 
-class CaesarCipher:
+class CezarShipher:
     def __init__(self):
         self.alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
         self.m = len(self.alphabet)
@@ -9,11 +9,12 @@ class CaesarCipher:
                                 char in enumerate(self.alphabet)}
         self.index_of_letter = {i: char for i,
                                 char in enumerate(self.alphabet)}
-        self.rus_letters = re.compile(r"[а-яё]", re.IGNORECASE)
+        self.rus_letters = re.compile(r"[а-я]", re.IGNORECASE)
 
-    def normalize(self, text: str) -> str:
+    def cleaner(self, text: str) -> str:
         text = text.lower().replace("ё", "е")
-        return "".join(char for char in text if char.isalpha())
+        # return "".join(char for char in text if char.isalpha())
+        return text
 
     def shifr_char(self, char: str, k: int, deshifr: bool = False) -> str:
         if not self.rus_letters.match(char):
@@ -27,10 +28,10 @@ class CaesarCipher:
 
         return self.index_of_letter[new_idx]
 
-    def shifrover(self, text: str, k: int, decrypt: bool = False) -> str:
-        if not decrypt:
-            text = self.normalize(text)
-        return "".join(self.shifr_char(ch, k, deshifr=decrypt) for ch in text)
+    def shifrover(self, text: str, k: int, deshifr: bool = False) -> str:
+        if not deshifr:
+            text = self.cleaner(text)
+        return "".join(self.shifr_char(ch, k, deshifr=deshifr) for ch in text)
 
     def brute_deshifrover(self, text: str):
         results = {}
