@@ -40,7 +40,15 @@ class Afins:
 
     def inv(self, a: int, b: int) -> int:
         if self.gcd(a, b) == 1:
-            return pow(a % b, -1, b)
+            # return pow(a % b, -1, b)
+            a %= self.m
+            t0, t1, r0, r1 = 0, 1, self.m, a
+            while r1:
+                q = r0 // r1
+                t0, t1 = t1, t0 - q * t1
+                r0, r1 = r1, r0 - q * r1
+
+            return t0 % self.m
         return 0
 
     def solve_comparison(self, a: int, b: int, m: int) -> tuple[int, int]:
