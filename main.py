@@ -21,7 +21,7 @@ def main():
         print("4. Выполнить анализ")
         print("5. Зашифровать")
         print("6. Расшифровать")
-        print("7. Ответ")
+        print("7. Взломать")
         print("8. Выход")
 
         action = input('Выберите действие (введите цифру): ')
@@ -105,12 +105,12 @@ def main():
             print("-------|| Афинный шифр ||-------")
             print("        Выполнить анализ\n")
 
-            text = input(
+            shifr = input(
                 "Введите фразу для анализа (Enter для использования заготовленной):\n")
-            text = fraze if not text else text
+            shifr = fraze if not shifr else shifr
 
             print("[I] Анализ фразы")
-            chars = afins.analyze(text)
+            chars = afins.analyze(shifr)
             print("[I] Анализ завершён\n")
 
             print("Таблица частот:")
@@ -118,6 +118,71 @@ def main():
                 for char in chars[freq]:
                     print(f"{char}: {freq}", end=' | ')
                 print()
+
+            pairs = afins.give_pairs(chars)
+            print(f"\nПара наиболее часто встречающихся букв: {pairs[0]}")
+
+            input("Нажмите Enter для продолжения...")
+
+        elif action == '5':
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            print("-------|| Афинный шифр ||-------")
+            print("          Зашифровать\n")
+
+            shifr = input("Введите фразу для шифрования: ")
+            a = int(input("Введите a: "))
+            b = int(input("Введите b: "))
+
+            print("[I] Начало шифрования")
+            text = afins.encrypt(shifr, a, b)
+            print("[I] Шифрование завершено\n")
+
+            print(f"ШТ: {text}")
+
+            input("Нажмите Enter для продолжения...")
+
+        elif action == '6':
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            print("-------|| Афинный шифр ||-------")
+            print("          Расшифровать\n")
+
+            shifr = input("Введите фразу для расшифровки: ")
+            a = int(input("Введите a: "))
+            b = int(input("Введите b: "))
+
+            print("[I] Начало расшифровки")
+            text = afins.decrypt(shifr, a, b)
+            print("[I] Расшифровка завершена\n")
+
+            print(f"ОТ: {text}")
+
+            input("Нажмите Enter для продолжения...")
+
+        elif action == '7':
+            os.system('cls' if os.name == 'nt' else 'clear')
+
+            print("-------|| Афинный шифр ||-------")
+            print("            Взломать\n")
+
+            print("[I] Начало взлома")
+            variants = afins.brute_force(fraze)
+            print("[I] Взлом завершен\n")
+
+            print(f"Наиболее вероятная расшифровка(-ки):")
+            keys = sorted(variants.keys(), reverse=True)
+
+            with open("variants.txt", "w", encoding="utf8") as file:
+                for key in keys:
+                    for variant in variants[key]:
+                        file.write(f"Ключ: {variant[0]}\n")
+                        file.write(f"ОТ: {variant[1]}\n")
+
+            for key in keys[:1]:
+                for variant in variants[key]:
+                    print(f"Ключ: {variant[0]}")
+                    print(f"ОТ: {variant[1]}\n")
 
             input("Нажмите Enter для продолжения...")
 
