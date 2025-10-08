@@ -106,8 +106,11 @@ def main():
             print("        Выполнить анализ\n")
 
             shifr = input(
-                "Введите фразу для анализа (Enter для использования заготовленной):\n")
-            shifr = fraze if not shifr else shifr
+                "Введите фразу для анализа (Enter для использования фразы из файла):\n")
+            # shifr = fraze if not shifr else shifr
+            if not shifr:
+                with open('fraze.txt', 'r', encoding='utf8') as f:
+                    shifr = f.readline().strip()
 
             print("[I] Анализ фразы")
             chars = afins.analyze(shifr)
@@ -166,6 +169,16 @@ def main():
             print("-------|| Афинный шифр ||-------")
             print("            Взломать\n")
 
+            with open('fraze.txt', 'r', encoding='utf8') as f:
+                fraze = f.readline().strip()
+
+            print("[I] Анализ фразы")
+            chars = afins.analyze(fraze)
+            print("[I] Анализ завершён\n")
+
+            pairs = afins.give_pairs(chars)
+            print(f"\nПара наиболее часто встречающихся букв в ШТ: {pairs[0]}")
+
             print("[I] Начало взлома")
             variants = afins.brute_force(fraze)
             print("[I] Взлом завершен\n")
@@ -183,6 +196,13 @@ def main():
                 for variant in variants[key]:
                     print(f"Ключ: {variant[0]}")
                     print(f"ОТ: {variant[1]}\n")
+            
+            print("[I] Анализ фразы")
+            chars = afins.analyze(variants[keys[0]][0][1])
+            print("[I] Анализ завершён\n")
+
+            pairs = afins.give_pairs(chars)
+            print(f"\nПара наиболее часто встречающихся букв в ШТ: {pairs[0]}")
 
             input("Нажмите Enter для продолжения...")
 

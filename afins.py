@@ -40,14 +40,14 @@ class Afins:
 
     def inv(self, a: int, b: int) -> int:
         if self.gcd(a, b) == 1:
-            a %= self.m
-            coef_old, coef_new, rem_old, rem_new = 0, 1, self.m, a
+            a %= b
+            coef_old, coef_new, rem_old, rem_new = 0, 1, b, a
             while rem_new:
                 q = rem_old // rem_new
                 coef_old, coef_new = coef_new, coef_old - q * coef_new
                 rem_old, rem_new = rem_new, rem_old - q * rem_new
 
-            return coef_old % self.m
+            return coef_old % b
         return 0
 
     def solve_comparison(self, a: int, b: int, m: int) -> tuple[int, int]:
