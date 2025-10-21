@@ -5,7 +5,10 @@ from rsa import RSA
 def main():
     rsa = RSA()
 
-    print(rsa.blocking('121027419922242124141532', 22213))
+    eds = rsa.get_ed(3)
+    print(eds)
+    for ed in eds:
+        print(ed[0] * ed[1] % rsa.phi_n)
 
 
 if __name__ == "__main__":
