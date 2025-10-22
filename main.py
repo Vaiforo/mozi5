@@ -11,6 +11,7 @@ def main():
         " кошку глядит. А кошка отчасти идет по дороге, Отчасти по воздуху",
         " плавно летит!"
     ])
+    k = 5
 
     enthropi = Enthropi()
 
@@ -33,15 +34,15 @@ def main():
             print("-------|| Модель открытого текста ||-------")
             print("             Рассчитаь Hk(T)/k\n")
 
-            print("[I] Поиск всех k-грамм от 1 до 5")
-            all_k_gramms = enthropi.k_gramms_generator(fraze, 5)
+            print(f"[I] Поиск всех k-грамм от 1 до {k}")
+            all_k_gramms = enthropi.k_gramms_generator(fraze, k)
             print("[I] Все k-граммы найдены")
 
             print("[I] Расчёт частот")
             all_frequencies = enthropi.analyze(fraze, all_k_gramms)
             print("[I] Частоты найдены")
 
-            print("[I] Расчёт Hk(T)/k от 1 до 5")
+            print(f"[I] Расчёт Hk(T)/k от 1 до {k}")
             hktks.clear()
             for k in all_frequencies:
                 frequencies = all_frequencies[k]
@@ -60,7 +61,7 @@ def main():
             print("-------|| Модель открытого текста ||-------")
             print("             Построить график\n")
 
-            plt.plot(range(1, 6), hktks, marker='o')
+            plt.plot(range(1, k + 1), hktks, marker='o')
             plt.title("Зависимость Hk(T)/k от k")
             plt.xlabel("k")
             plt.ylabel("Hk(T)/k")
