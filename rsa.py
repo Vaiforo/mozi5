@@ -1,5 +1,5 @@
 class RSA:
-    def __init__(self):
+    def __init__(self, p, q):
         self.alphabet = "абвгдежзийклмнопрстуфхцчшщъыьэюя"
         self.letter_to_index = {char: i for i,
                                 char in enumerate(self.alphabet, start=10)}
@@ -8,13 +8,13 @@ class RSA:
                                 char in enumerate(self.alphabet, start=10)}
         self.index_to_letter[99] = " "
 
-        self.p, self.q = 179, 317
+        self.p, self.q = p, q
         self.n = self.q * self.p
         self.phi_n = (self.q - 1) * (self.p - 1)
 
     def cleaner(self, text: str) -> str:
         text = text.lower().replace("ё", "е")
-        return "".join(char for char in text if char.isalpha() or char == " " and char in self.alphabet)
+        return "".join(char for char in text if (char.isalpha() and char in self.alphabet) or char == " ")
 
     def gcd(self, a: int, b: int) -> tuple:
         a, b = (a, b) if a > b else (b, a)
@@ -82,18 +82,28 @@ class RSA:
                 break
         return ed_pairs
 
+    def bin_pow(self, num, exponent) -> int:
+        result = 1
+        num %= self.n
+        while exponent > 0:
+            if exponent % 2 == 1:
+                result = result * num % self.n
+            num = num ** 2 % self.n
+            exponent //= 2
+        return result
+
     def solve_CM(self, blocks: list, exponent: int) -> list:
         solved_blocks = []
         for block in blocks:
-            solved_blocks.append(str(int(block) ** exponent % self.n))
+            solved_blocks.append(str(self.bin_pow(int(block), exponent)))
         return solved_blocks
 
     def shifr(self, text: str, e: int) -> str:
         M = self.shifr_to_M(text)
         blocks = self.blocking(M)
         return "".join(self.solve_CM(blocks, e))
-    
+
     def deshifr(self, shifr: str, d: int) -> str:
         blocks = self.blocking(shifr)
-        M = self.solve_CM(blocks, d)
-        # return "".join(self.)
+        M = "".join(self.solve_CM(blocks, d))
+        return self.deshifr_from_M(M)
