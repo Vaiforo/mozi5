@@ -6,7 +6,7 @@ class Enthropi:
         self.alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
 
     def cleaner(self, text: str) -> str:
-        return "".join(char for char in text.lower() if char.isalpha() and char in self.alphabet)
+        return "".join(char for char in text.lower() if char in self.alphabet)
 
     def give_k_gramms(self, symbols: str, k: int) -> list:
         k_gramms = []
