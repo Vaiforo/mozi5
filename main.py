@@ -3,11 +3,10 @@ from rsa import RSA
 
 
 def main():
-    p, q = 179, 317
-
-    keys = []
-    rsa = RSA(p, q)
-    n = p * q
+    e, n = 251, 61889
+    C = 23824
+    
+    t
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
