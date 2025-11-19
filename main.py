@@ -1,15 +1,16 @@
 import os
 from rsa import RSA
+from tools import Tools
 
 
 def main():
     e, n = 251, 61889
     C = 23824
-    
-    t
+
+    tools = Tools()
 
     while True:
-        os.system('cls' if os.name == 'nt' else 'clear')
+        tools.clean_cmd()
 
         print("-------|| Алгоритм RSA ||-------\n")
         print("   Главное меню")
