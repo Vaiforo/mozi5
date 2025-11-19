@@ -66,7 +66,7 @@ def main():
             shifr = rsa.shifr(text, keys[key - 1][0])
             print("[I] Шифрование завершено")
 
-            print(f"\nПолученный шифр:\n{shifr}")
+            print(f"\nПолученный шифр:\n{" ".join(shifr)}")
 
             input("Нажмите Enter для продолжения...")
 
@@ -79,7 +79,7 @@ def main():
             if not keys:
                 keys = rsa.get_ed(3, 3)
 
-            shifr = input("Введите шифр для расшифровки: ")
+            shifr = input("Введите шифр для расшифровки: ").replace(" ", "")
 
             print("\nИмеющиеся ключи:")
             for i, key in enumerate(keys):
@@ -119,7 +119,7 @@ def main():
             shifr = rsa.shifr(text, keys[key - 1][0])
             print("[I] Шифрование завершено")
 
-            print(f"\nПолученный шифр:\n{shifr}")
+            print(f"\nПолученный шифр:\n{" ".join(shifr)}")
 
             print("[I] Начало расшифровки")
             text = rsa.deshifr(shifr, keys[key - 1][1])

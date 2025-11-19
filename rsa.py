@@ -14,7 +14,7 @@ class RSA:
 
     def cleaner(self, text: str) -> str:
         text = text.lower().replace("ё", "е")
-        return "".join(char for char in text if (char.isalpha() and char in self.alphabet) or char == " ")
+        return "".join(char for char in text if char in self.alphabet or char == " ")
 
     def gcd(self, a: int, b: int) -> tuple:
         a, b = (a, b) if a > b else (b, a)
@@ -62,8 +62,12 @@ class RSA:
             if int(block + char) < self.n:
                 block += char
             else:
+                next_block = char
+                if char == '0':
+                    next_block = block[-1] + char
+                    block = block[:-1]
                 blocks.append(block)
-                block = char
+                block = next_block
         blocks.append(block)
         return blocks
 
@@ -101,7 +105,7 @@ class RSA:
     def shifr(self, text: str, e: int) -> str:
         M = self.shifr_to_M(text)
         blocks = self.blocking(M)
-        return "".join(self.solve_CM(blocks, e))
+        return self.solve_CM(blocks, e)
 
     def deshifr(self, shifr: str, d: int) -> str:
         blocks = self.blocking(shifr)
