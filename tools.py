@@ -42,6 +42,16 @@ class Tools:
 
             return coef_old % b
         return 0
+    
+    def bin_pow(self, num, exponent) -> int:
+        result = 1
+        num %= self.n
+        while exponent > 0:
+            if exponent % 2 == 1:
+                result = result * num % self.n
+            num = num ** 2 % self.n
+            exponent //= 2
+        return result
 
     def cleaner(self, text: str, replace_e: bool = True, replace_b: bool = True, replace_: bool = False, rem_: bool = True) -> str:
         text = text.lower()
