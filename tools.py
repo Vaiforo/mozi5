@@ -52,6 +52,19 @@ class Tools:
             num = num ** 2 % self.n
             exponent //= 2
         return result
+    
+    def int_sqrt(self, n: int) -> int:
+        if n < 0:
+            raise ValueError("n должно быть неотрицательным")
+        if n < 2:
+            return n
+
+        x = n // 2
+        while True:
+            y = (x + n // x) // 2
+            if y >= x:
+                return x
+            x = y
 
     def cleaner(self, text: str, replace_e: bool = True, replace_b: bool = True, replace_: bool = False, rem_: bool = True) -> str:
         text = text.lower()
