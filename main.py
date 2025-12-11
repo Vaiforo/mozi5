@@ -15,11 +15,10 @@ def main():
 
         print("-------|| Дискретный логарифм ||-------\n")
         print("   Главное меню")
-        print("1. Показать параметры и k")
-        print("2. Показать элементы последовательностей y_n и z_n")
+        print("1. Найти k")
+        print("2. Найти y_n и z_n")
         print("3. Найти дискретный логарифм x")
-        print("4. Проверить своё значение x")
-        print("5. Выход")
+        print("4. Выход")
 
         action = input('Выберите действие (введите цифру): ')
 
@@ -68,28 +67,12 @@ def main():
                 print(f"k = {k}")
                 print(f"Совпадение: y_{i} = z_{j} = {val}")
                 print(f"x = i * k - j (mod p-1) = {x}")
-                print(f"Проверка: a^x mod p = {disc.bin_pow(a, x, p)}")
+                print(f"Проверка: a^x mod p = {tools.bin_pow(a, x, p)}")
 
             input("\nНажмите Enter для продолжения...")
 
-        elif action == '4':
-            tools.clean_cmd()
 
-            x_raw = input("Введите предполагаемое значение x: ")
-            x_user = int(x_raw)
-
-            value = disc.bin_pow(a, x_user, p)
-            ok = (value == b % p)
-
-            print(f"a^x mod p = {value}")
-            if ok:
-                print("[I] Значение x верное: a^x ≡ b (mod p)")
-            else:
-                print("[I] Значение x НЕ подходит: a^x ≠ b (mod p)")
-
-            input("\nНажмите Enter для продолжения...")
-
-        elif action == '5' or action == '':
+        elif action == '4' or action == '':
             print("\n[I] Завершение работы программы")
             break
 

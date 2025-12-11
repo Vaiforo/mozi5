@@ -42,17 +42,17 @@ class Tools:
 
             return coef_old % b
         return 0
-    
-    def bin_pow(self, num, exponent) -> int:
+
+    def bin_pow(self, base: int, exponent: int, mod: int) -> int:
         result = 1
-        num %= self.n
+        base %= mod
         while exponent > 0:
             if exponent % 2 == 1:
-                result = result * num % self.n
-            num = num ** 2 % self.n
+                result = (result * base) % mod
+            base = (base * base) % mod
             exponent //= 2
         return result
-    
+
     def int_sqrt(self, n: int) -> int:
         if n < 0:
             raise ValueError("n должно быть неотрицательным")
