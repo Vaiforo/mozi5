@@ -1,5 +1,6 @@
 from tools import Tools
 
+
 class DiscLog:
     def __init__(self, a: int, b: int, p: int):
         self.a = a
@@ -9,7 +10,6 @@ class DiscLog:
         self.tools = Tools()
 
     def int_sqrt(self, n: int) -> int:
-
         if n < 0:
             raise ValueError("n должно быть неотрицательным")
         if n < 2:
