@@ -1,8 +1,12 @@
+from tools import Tools
+
 class DiscLog:
     def __init__(self, a: int, b: int, p: int):
         self.a = a
         self.b = b
         self.p = p
+
+        self.tools = Tools()
 
     def int_sqrt(self, n: int) -> int:
 
@@ -17,17 +21,6 @@ class DiscLog:
             if y >= x:
                 return x
             x = y
-
-    def bin_pow(self, base: int, exponent: int, mod: int) -> int:
-
-        result = 1
-        base %= mod
-        while exponent > 0:
-            if exponent % 2 == 1:
-                result = (result * base) % mod
-            base = (base * base) % mod
-            exponent //= 2
-        return result
 
     def compute_k(self) -> int:
 
@@ -45,7 +38,7 @@ class DiscLog:
         b = self.b % p
 
         y_values = []
-        a_k = self.bin_pow(a, k, p)
+        a_k = self.tools.bin_pow(a, k, p)
         cur_y = a_k
         for i in range(1, k + 1):
             y_values.append((i, cur_y))
@@ -80,4 +73,4 @@ class DiscLog:
         return None, k, None, None, None
 
     def check_x(self, x: int) -> bool:
-        return self.bin_pow(self.a, x, self.p) == (self.b % self.p)
+        return self.tools.bin_pow(self.a, x, self.p) == (self.b % self.p)
