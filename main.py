@@ -1,11 +1,13 @@
 import os
 from fact import Factorization
+from tools import Tools
 
 
 def main():
     m = 562013
 
     factor = Factorization(m)
+    tools = Tools()
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -19,7 +21,12 @@ def main():
         action = input("Выберите действие: ").strip()
 
         if action == "1":
-            print("\nВведите модули решёт a, b, c")
+            tools.clean_cmd()
+
+            print("-------|| Методы факторизации числа ||-------\n")
+            print("  Факторизация методом квадратичного решета\n")
+
+            print("Введите модули решёт a, b, c")
             a, b, c = map(int, input("a b c: ").split())
 
             result = factor.quadratic_sieve(a, b, c)
@@ -37,6 +44,11 @@ def main():
             input("\nНажмите Enter для продолжения...")
 
         elif action == "2":
+            tools.clean_cmd()
+
+            print("-------|| Методы факторизации числа ||-------\n")
+            print("       Факторизация ρ-методом Полларда\n")
+
             print("\n[I] ρ-метод Полларда: f(x) = x^2 + 1 (mod m)")
             print("Введите начальные члены последовательностей x0^(1) и x0^(2)")
             print("Обычно берут одинаковые небольшие числа, например 2 и 2\n")
