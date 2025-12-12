@@ -25,6 +25,9 @@ def main():
         if action == '1':
             tools.clean_cmd()
 
+            print("-------|| Дискретный логарифм ||-------")
+            print("                Найти k")
+
             k = disc.compute_k()
             print(f"a = {a}")
             print(f"b = {b}")
@@ -35,6 +38,9 @@ def main():
 
         elif action == '2':
             tools.clean_cmd()
+
+            print("-------|| Дискретный логарифм ||-------")
+            print("            Найти y_n и z_n")
 
             k, y_values, z_values = disc.build_sequences()
             print(f"k = {k}")
@@ -58,6 +64,9 @@ def main():
         elif action == '3':
             tools.clean_cmd()
 
+            print("-------|| Дискретный логарифм ||-------")
+            print("      Найти дискретный логарифм x")
+
             x, k, i, j, val = disc.solve()
 
             if x is None:
@@ -70,7 +79,6 @@ def main():
                 print(f"Проверка: a^x mod p = {tools.bin_pow(a, x, p)}")
 
             input("\nНажмите Enter для продолжения...")
-
 
         elif action == '4' or action == '':
             print("\n[I] Завершение работы программы")
